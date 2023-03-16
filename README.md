@@ -34,11 +34,14 @@ This repo contains the classifier code in pytorch for Training, Testing and Infe
 
 ### Data
 
-Clone the dataset repo in `workspace/DB/git_DB_dummy/` folder. 
+Clone the dataset repo in `workspace/DB` folder. 
 
 For example following command will clone the `cat_dog_classifier` repo at given path.
 
-`git clone https://gitlab.ignitarium.in/tyqi-platform/tyqi-model/experiments/db.git -b cat_dog_classifier --depth=1 workspace/DB/cat_dog_classifier`
+- `wget https://github.com/Ignitarium-AI/Classifier_PyTorch/releases/download/dataset/cat_dog_classifier.zip -P workspace/DB/`
+- `cd workspace/DB`
+- `unzip cat_dog_classifier.zip`
+- `cd ../../`
 
 ### Model
 
@@ -51,7 +54,7 @@ For training custom_model, modify `custom_model.py` and select custom_model from
 
 To train the classifier, Run following command.
 
-`python -m classifier.train --model_name "resnet18" --num_classes 2 --classes cat dog --work_dir "workspace" --seed 42 -lr 0.0001 -ep 50 --data_path <PATH OF FOLDER WHERE TRAIN/VAL/TEST DATASET IS PRESENT>`
+`python -m classifier.train --model_name resnet18 --num_classes 2 --classes cat dog --work_dir workspace --seed 42 -lr 0.0001 -ep 50 --data_path <PATH OF FOLDER WHERE TRAIN/VAL/TEST DATASET IS PRESENT>`
 
 The best checkpoint will be saved in `checkpoints` directory with `best.py` name.
 
@@ -61,7 +64,7 @@ The best checkpoint will be saved in `checkpoints` directory with `best.py` name
 
 To test and evaluate the classifier, Run following command.
 
-`python -m classifier.test --model_name "resnet18" --num_classes 2 --classes cat dog --work_dir "workspace" --data_path <PATH OF FOLDER WHERE TRAIN/VAL/TEST DATASET IS PRESENT> -t 0.8`
+`python -m classifier.test --model_name resnet18 --num_classes 2 --classes cat dog --work_dir workspace --data_path <PATH OF FOLDER WHERE TRAIN/VAL/TEST DATASET IS PRESENT> -t 0.8`
 
 Above command will evaluate test dataloader with Precision, Recall, F1-score, and Confusion matrics. Here 0.8 is testing threshold, assertion is raised if achieved testing accuracy is less than 0.8.
 
@@ -69,8 +72,8 @@ Above command will evaluate test dataloader with Precision, Recall, F1-score, an
 
 To perform the infernce on folder of images run following command.
 
-`python -m classifier.infer --model_name "resnet18" --num_classes 2 --classes cat dog -ws "workspace" --folder_path <PATH OF FOLDER>`
+`python -m classifier.infer --model_name resnet18 --num_classes 2 --classes cat dog --work_dir workspace --folder_path <PATH OF FOLDER>`
 
 To perform the infernce on single image run following command.
 
-`python -m classifier.infer --model_name "resnet18" --num_classes 2 -ws "workspace" --img_path <PATH OF IMAGE>`
+`python -m classifier.infer --model_name resnet18 --num_classes 2 --classes cat dog --work_dir workspace --img_path <PATH OF IMAGE>`
